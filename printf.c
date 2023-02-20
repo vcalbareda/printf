@@ -12,6 +12,8 @@ int ft_detect_format(char c, va_list args);
 void	ft_min(int n, char *str);
 int	ft_number_len(int n);
 char	*ft_itoa(int n);
+void	ft_putstr(char *str);
+size_t	ft_strlen(const char *s);
 
 int main()
 {
@@ -21,7 +23,8 @@ int main()
    //formatStr(5, "Name: %% Height: %i", name, height);
    //char test[] = "coconut";
    //printf("%s\n", test);
-   ft_printf("%c %d %c %c\n", 'a', 1234567, 'c', 'd');
+
+   ft_printf("%c %s %d %c\n", 'a', "hello", 1234567);
    printf("%c %c %c %c", 'a', 'b', 'c', 'd');
    //printf("%s", test);
    return (0);
@@ -88,8 +91,6 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-
-
 // prints char
 int ft_putchar(char c)
 {
@@ -104,16 +105,21 @@ int ft_detect_format(char c, va_list args) {
 
    to_print = 0;
    if (c == 'c'){
+    	ft_putchar(va_arg(args, int));
+	} else if (c == 's'){
+		ft_putstr(va_arg(args, char *));
+	} else if (c == 'p'){
+		// TODO: format specifier for pointer
+		// need to have unsigned int for print	
+   	} else if (c == 'd' || c == 'i'){
       to_print = va_arg(args, int);
-      ft_putchar(to_print);
-   } else if (c == 'd'){
-      to_print = va_arg(args, int);
-      ft_putchar(*ft_itoa(to_print));
-      
-   }
-
-     
-   return (0);
+      ft_putstr(ft_itoa(to_print));   
+    } else if ( c == 'u'){
+		// TO-DO: format specifier for unsigned int
+	} else if ( c == 'x' || c == 'X'){
+		//TO-DO: format specifiers for Hexadecimal representation
+	}
+   return (to_print);
 }
 
 // printf main body. Should call each data specifier function
@@ -147,3 +153,34 @@ int ft_printf(const char *str, ...){
    va_end(args);
    return(to_print);
 }
+
+void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
+
+void ft_putptr(int n)
+{
+	int *ptr = &n;
+	int** ptr_to_ptr = &ptr;
+
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != '\0')
+	{
+		len++;
+	}	
+	return (len);
+}	
