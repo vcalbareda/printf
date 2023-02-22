@@ -24,7 +24,9 @@ int main()
    //char test[] = "coconut";
    //printf("%s\n", test);
 
-   ft_printf("%c %s %d %c\n", 'a', "hello", 1234567);
+   //ft_printf("%c %s %d %c\n", 'a', "hello", 1234567);
+   ft_printf("Hola\n");
+   ft_printf("%c %s\n", 'a', "Hello");
    printf("%c %c %c %c", 'a', 'b', 'c', 'd');
    //printf("%s", test);
    return (0);
@@ -143,10 +145,11 @@ int ft_printf(const char *str, ...){
       if (str[i] == '%')
       {
          to_print += ft_detect_format(str[i+1], args);
+		 i++;
       }
       else
       {
-         ft_putchar(str[++i]);
+         to_print += ft_putchar(str[i]);
       }
       i++;
    }
